@@ -1,15 +1,11 @@
 package net.runelite.client.plugins.playertracker;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Polygon;
+import java.awt.*;
 import java.util.List;
 import javax.inject.Inject;
 import net.runelite.api.Client;
-import net.runelite.api.Perspective;
 import net.runelite.api.Player;
-import net.runelite.api.coords.LocalPoint;
+import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -21,6 +17,7 @@ public class PlayerTrackerOverlay extends Overlay {
     private final Client client;
     private final PlayerTrackerConfig config;
     private PlayerTrackerPlugin playerTrackerPlugin;
+    private static final Font FONT = FontManager.getRunescapeFont().deriveFont(Font.BOLD, 16);
 
     @Inject
     private PlayerTrackerOverlay(Client client, PlayerTrackerConfig config, PlayerTrackerPlugin playerTrackerPlugin) {
@@ -34,27 +31,25 @@ public class PlayerTrackerOverlay extends Overlay {
 
     @Override
     public Dimension render(Graphics2D graphics) {
-        if(config.highlightAttackTile()) {
-            List<Player> players = client.getPlayers();
-            Player local = client.getLocalPlayer();
-            for(Player p: players) {
-                if(p != local) {
-                    if(p.getName() != "Ferticus" && p.getName() != "kiwi hybrid" && p.getName() != "GravityLbstr" && p.getName() != "BlooMcgee") {
-                        if(81 >= p.getCombatLevel() && p.getCombatLevel() >= 20) {
-                            OverlayUtil.renderActorOverlay(graphics, p, "", config.highlightAttackColor());
+        graphics.setFont(FONT);
+        List<Player> players = client.getPlayers();
+        Player local = client.getLocalPlayer();
+        for(Player p: players) {
+            if(p != local) {
+                if(p.getName() != "Ferticus" && p.getName() != "kiwi hybrid" && p.getName() != "GravityLbstr" && p.getName() != "BlooMcgee") {
+                    if(config.highlightAttackTile()) {
+                        if(config.yellowLowerBound() > p.getCombatLevel() && p.getCombatLevel() >= config.greenLowerBound()) {
+                            OverlayUtil.renderActorOverlay(graphics, p, p.getCombatLevel() + "   " + p.getName(), config.highlightAttackColor());
                         }
                     }
-                }
-            }
-        }
-        if(config.highlightDangerTile()) {
-            List<Player> players = client.getPlayers();
-            Player local = client.getLocalPlayer();
-            for(Player p: players) {
-                if(p != local) {
-                    if (p.getName() != "Ferticus" && p.getName() != "kiwi hybrid" && p.getName() != "GravityLbstr" && p.getName()!= "BlooMcgee") {
-                        if (91 > p.getCombatLevel() && p.getCombatLevel() > 81) {
-                            OverlayUtil.renderActorOverlay(graphics, p, "", config.highlightDangerColor());
+                    if(config.highlightMediumTile()) {
+                        if (config.yellowUpperBound() >= p.getCombatLevel() && p.getCombatLevel() >= config.yellowLowerBound()) {
+                            OverlayUtil.renderActorOverlay(graphics, p, p.getCombatLevel() + "   " + p.getName(), config.highlightMediumColor());
+                        }
+                    }
+                    if(config.highlightDangerTile()) {
+                        if (config.redUpperBound() >= p.getCombatLevel() && p.getCombatLevel() > config.yellowUpperBound()) {
+                            OverlayUtil.renderActorOverlay(graphics, p, p.getCombatLevel() + "   " + p.getName(), config.highlightDangerColor());
                         }
                     }
                 }
@@ -62,19 +57,4 @@ public class PlayerTrackerOverlay extends Overlay {
         }
         return null;
     }
-
-//    private void renderPlayers(Graphics2D graphics) {
-//
-//    }
-//
-//    private void renderTile(final Graphics2D graphics, final LocalPoint dest, final Color color) {
-//        if(dest == null) {
-//            return;
-//        }
-//        final Polygon poly = Perspective.getCanvasTilePoly(client, dest);
-//        if(poly == null) {
-//            return;
-//        }
-//        OverlayUtil.renderPolygon(graphics, poly, color);
-//    }
 }
