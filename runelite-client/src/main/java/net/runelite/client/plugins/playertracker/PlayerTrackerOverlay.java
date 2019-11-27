@@ -36,7 +36,7 @@ public class PlayerTrackerOverlay extends Overlay {
         Player local = client.getLocalPlayer();
         for(Player p: players) {
             if(p != local) {
-                if(p.getName() != "Ferticus" && p.getName() != "kiwi hybrid" && p.getName() != "GravityLbstr" && p.getName() != "BlooMcgee") {
+                if(!p.getName().equalsIgnoreCase("Ferticus") && !p.getName().equalsIgnoreCase("kiwi hybrid") && !p.getName().equalsIgnoreCase("gravitylbstr") && !p.getName().equalsIgnoreCase("bloomcgee") && !p.getName().equalsIgnoreCase("doctor moans")) {
                     if(config.highlightAttackTile()) {
                         if(config.yellowLowerBound() > p.getCombatLevel() && p.getCombatLevel() >= config.greenLowerBound()) {
                             OverlayUtil.renderActorOverlay(graphics, p, p.getCombatLevel() + "   " + p.getName(), config.highlightAttackColor());
