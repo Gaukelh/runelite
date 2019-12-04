@@ -25,8 +25,8 @@ public class PlayerTrackerOverlay extends Overlay {
         this.config = config;
         this.playerTrackerPlugin = playerTrackerPlugin;
         setPosition(OverlayPosition.DYNAMIC);
-        setLayer(OverlayLayer.ABOVE_WIDGETS);
-        setPriority(OverlayPriority.HIGHEST);
+        setLayer(OverlayLayer.ALWAYS_ON_TOP);
+        setPriority(OverlayPriority.HIGH);
     }
 
     @Override
