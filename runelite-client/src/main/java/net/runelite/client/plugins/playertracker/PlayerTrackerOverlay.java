@@ -25,8 +25,8 @@ public class PlayerTrackerOverlay extends Overlay {
         this.config = config;
         this.playerTrackerPlugin = playerTrackerPlugin;
         setPosition(OverlayPosition.DYNAMIC);
-        setLayer(OverlayLayer.ALWAYS_ON_TOP);
-        setPriority(OverlayPriority.HIGH);
+        setLayer(OverlayLayer.ABOVE_SCENE);
+        setPriority(OverlayPriority.LOW);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class PlayerTrackerOverlay extends Overlay {
         Player local = client.getLocalPlayer();
         for(Player p: players) {
             if(p != local) {
-                if(!p.getName().equalsIgnoreCase("Ferticus") && !p.getName().equalsIgnoreCase("kiwi hybrid") && !p.getName().equalsIgnoreCase("gravitylbstr") && !p.getName().equalsIgnoreCase("bloomcgee") && !p.getName().equalsIgnoreCase("doctor moans")) {
+                if(!p.getName().equalsIgnoreCase("Ferticus") && !p.getName().equalsIgnoreCase("kiwi hybrid") && !p.getName().equalsIgnoreCase("gravitylbstr") && !p.getName().equalsIgnoreCase("bloomcgee") && !p.getName().equalsIgnoreCase("doctor moans") && !p.getName().equalsIgnoreCase("HugeMutt")) {
                     if(config.highlightAttackTile()) {
                         if(config.yellowLowerBound() > p.getCombatLevel() && p.getCombatLevel() >= config.greenLowerBound()) {
                             OverlayUtil.renderActorOverlay(graphics, p, p.getCombatLevel() + "   " + p.getName(), config.highlightAttackColor());
