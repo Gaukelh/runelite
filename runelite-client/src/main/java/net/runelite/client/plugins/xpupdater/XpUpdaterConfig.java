@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Psikoi <https://github.com/psikoi>
+ * Copyright (c) 2020, Alexsuperfly <alexsuperfly@users.noreply.github.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,35 +22,34 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.loottracker;
+package net.runelite.client.plugins.xpupdater;
 
-import lombok.NonNull;
-import lombok.Value;
-import net.runelite.http.api.loottracker.LootRecordType;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
 
-@Value
-class LootTrackerRecord
+@ConfigGroup("xpupdater")
+public interface XpUpdaterConfig extends Config
 {
-	@NonNull
-	private final String title;
-	private final String subTitle;
-	private final LootRecordType type;
-	private final LootTrackerItem[] items;
-	private final int kills;
-
-	/**
-	 * Checks if this record matches specified id
-	 *
-	 * @param id other record id
-	 * @return true if match is made
-	 */
-	boolean matches(final String id, LootRecordType type)
+	@ConfigItem(
+		position = 1,
+		keyName = "cml",
+		name = "Crystal Math Labs",
+		description = "Automatically updates your stats on crystalmathlabs.com when you log out"
+	)
+	default boolean cml()
 	{
-		if (id == null)
-		{
-			return true;
-		}
+		return false;
+	}
 
-		return title.equals(id) && this.type == type;
+	@ConfigItem(
+		position = 2,
+		keyName = "templeosrs",
+		name = "TempleOSRS",
+		description = "Automatically updates your stats on templeosrs.com when you log out"
+	)
+	default boolean templeosrs()
+	{
+		return false;
 	}
 }
