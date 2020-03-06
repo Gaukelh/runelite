@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2018, terminatusx <jbfleischman@gmail.com>
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019 logarrhytmic <https://github.com/logarrhythmic>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -23,21 +22,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.wintertodt.config;
+package net.runelite.client.plugins.gpu.config;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum WintertodtNotifyMode
+public enum UIScalingMode
 {
-	NONE("None"),
-	WHEN_DAMAGED("Damage Taken"),
-	ONLY_WHEN_INTERRUPTED("Action Interrupted"),
-	EITHER("Either");
+	NEAREST("Nearest Neighbor", 0),
+	LINEAR("Bilinear", 0),
+	MITCHELL("Bicubic (Mitchell)", 1),
+	CATMULL_ROM("Bicubic (Catmull-Rom)", 2),
+	XBR("xBR", 3);
 
 	private final String name;
+	private final int mode;
 
 	@Override
 	public String toString()
