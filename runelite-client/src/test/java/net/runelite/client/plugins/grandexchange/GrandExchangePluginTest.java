@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Abex
+ * Copyright (c) 2020, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,69 +22,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.util;
+package net.runelite.client.plugins.grandexchange;
 
-import java.awt.event.KeyEvent;
-import java.util.function.Supplier;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import net.runelite.client.config.Keybind;
-import net.runelite.client.input.KeyListener;
+import java.util.Arrays;
+import java.util.List;
+import static net.runelite.client.plugins.grandexchange.GrandExchangePlugin.findFuzzyIndices;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
-@RequiredArgsConstructor
-public abstract class HotkeyListener implements KeyListener
+public class GrandExchangePluginTest
 {
-	private final Supplier<Keybind> keybind;
-
-	private boolean isPressed = false;
-
-	private boolean isConsumingTyped = false;
-
-	@Setter
-	@Getter
-	private boolean isEnabledOnLogin = false;
-
-	@Override
-	public void keyTyped(KeyEvent e)
+	@Test
+	public void testFindFuzzyIndices()
 	{
-		if (isConsumingTyped)
-		{
-			e.consume();
-		}
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e)
-	{
-		if (keybind.get().matches(e))
-		{
-			boolean wasPressed = isPressed;
-			isPressed = true;
-			if (!wasPressed)
-			{
-				hotkeyPressed();
-			}
-			if (Keybind.getModifierForKeyCode(e.getKeyCode()) == null)
-			{
-				isConsumingTyped = true;
-				// Only consume non modifier keys
-				e.consume();
-			}
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e)
-	{
-		if (keybind.get().matches(e))
-		{
-			isPressed = false;
-			isConsumingTyped = false;
-		}
-	}
-
-	public void hotkeyPressed()
-	{
+		List<Integer> fuzzyIndices = findFuzzyIndices("Ancestral robe bottom", "obby");
+		// r<u>ob</u>e <u>b</u>ottom
+		assertEquals(Arrays.asList(11, 12, 15), fuzzyIndices);
 	}
 }
