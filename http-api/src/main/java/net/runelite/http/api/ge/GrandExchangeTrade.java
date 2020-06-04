@@ -32,10 +32,13 @@ public class GrandExchangeTrade
 {
 	private boolean buy;
 	private boolean cancel;
+	private boolean login;
 	private int itemId;
-	private int quantity;
+	private int qty;
+	private int dqty;
 	private int total;
-	private int price;
+	private int spent;
 	private int offer;
+	private int slot;
 	private WorldType worldType;
 }

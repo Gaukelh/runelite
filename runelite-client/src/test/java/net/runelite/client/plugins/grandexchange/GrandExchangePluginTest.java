@@ -157,9 +157,9 @@ public class GrandExchangePluginTest
 		GrandExchangeTrade trade = captor.getValue();
 		assertTrue(trade.isBuy());
 		assertEquals(ItemID.ABYSSAL_WHIP, trade.getItemId());
-		assertEquals(2, trade.getQuantity());
+		assertEquals(2, trade.getDqty());
 		assertEquals(10, trade.getTotal());
-		assertEquals(10, trade.getPrice());
+		assertEquals(20, trade.getSpent());
 	}
 
 	@Test
@@ -214,8 +214,8 @@ public class GrandExchangePluginTest
 		assertTrue(trade.isBuy());
 		assertTrue(trade.isCancel());
 		assertEquals(ItemID.ABYSSAL_WHIP, trade.getItemId());
-		assertEquals(1, trade.getQuantity());
+		assertEquals(1, trade.getQty());
 		assertEquals(10, trade.getTotal());
-		assertEquals(25, trade.getPrice());
+		assertEquals(25, trade.getSpent());
 	}
 }
