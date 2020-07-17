@@ -154,6 +154,7 @@ public class WidgetID
 	public static final int GENERIC_SCROLL_GROUP_ID = 625;
 	public static final int GAUNTLET_TIMER_GROUP_ID = 637;
 	public static final int BANK_PIN_GROUP_ID = 213;
+	public static final int HEALTH_OVERLAY_BAR_GROUP_ID = 303;
 
 	static class WorldMap
 	{
@@ -347,10 +348,8 @@ public class WidgetID
 
 	static class Viewport
 	{
-		static final int MINIMAP_RESIZABLE_WIDGET = 19;
-		static final int MINIMAP_RESIZABLE_CLICKBOX = 20;
+		static final int MINIMAP_RESIZABLE_WIDGET = 20;
 		static final int MINIMAP_RESIZABLE_DRAW_AREA = 28;
-		static final int MINIMAP_RESIZABLE_DECORATIONS = 30;
 		static final int MINIMAP_RESIZABLE_ORB_HOLDER = 31;
 		static final int MINIMAP_RESIZABLE_LOGOUT_BUTTON = 33;
 		static final int FIXED_VIEWPORT = 17;
@@ -917,5 +916,10 @@ public class WidgetID
 	static class BankPin
 	{
 		static final int CONTAINER = 0;
+	}
+
+	static class EncounterHealthBar
+	{
+		static final int CONTAINER = 6;
 	}
 }
